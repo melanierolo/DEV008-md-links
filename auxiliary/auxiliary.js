@@ -35,3 +35,19 @@ console.log(
   "validateAbsolutePath:",
   validateAbsolutePath("./../DEV008-md-links/testsMdLinks/folder/fileTwo.md")
 );
+
+function isFolder(inputAbsolutePath) {
+  console.log(inputAbsolutePath);
+  const status = fs.statSync(inputAbsolutePath);
+  return status.isDirectory();
+}
+
+const pathAbs = validateAbsolutePath(
+  "./../DEV008-md-links/testsMdLinks/folder/fileTwo.md"
+);
+const pathAbsTwo = validateAbsolutePath(
+  "./../DEV008-md-links/testsMdLinks/folder"
+);
+console.log("-----Example 2--------:isFolder");
+console.log("isFolder", isFolder(pathAbs));
+console.log("isFolder", isFolder(pathAbsTwo));
