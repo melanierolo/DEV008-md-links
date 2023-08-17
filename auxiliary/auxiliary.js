@@ -51,3 +51,17 @@ const pathAbsTwo = validateAbsolutePath(
 console.log("-----Example 2--------:isFolder");
 console.log("isFolder", isFolder(pathAbs));
 console.log("isFolder", isFolder(pathAbsTwo));
+
+function hasMdFileExtension(inputAbsolutePath) {
+  const inputLength = inputAbsolutePath.length;
+  const fileExtension = inputAbsolutePath.slice(inputLength - 3, inputLength);
+  console.log(
+    `[inputAbsolutePath-inputLength]:${inputAbsolutePath}--${inputLength}`
+  );
+  console.log(`File extension: ${fileExtension}`);
+  return fileExtension === ".md" ? true : false;
+}
+
+console.log("-----Example 3--------:hasMdFileExtension");
+console.log("hasMdFileExtension", hasMdFileExtension(pathAbs));
+console.log("hasMdFileExtension", hasMdFileExtension(pathAbsTwo));
