@@ -90,3 +90,28 @@ convertMarkdownToHTML(pathAbsFileOne)
   .catch((error) => {
     console.log(error);
   });
+
+console.log("-----Example 5--------:getLinksInHtmlFile");
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
+
+async function getLinksInHtmlFile(pathAbsFileOne) {
+  try {
+    let linksInHtml = [];
+    const htmlContent = await convertMarkdownToHTML(pathAbsFileOne);
+    console.log("get HTML", htmlContent);
+    const dom = new JSDOM(htmlContent, { includeNodeLocations: true }); // Include the option here
+    const document = dom.window.document;
+    const anchorElements = document.querySelectorAll("a");
+    anchorElements.forEach((anchor) => {
+      linksInHtml.push(anchor.href);
+    });
+    return linksInHtml;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+getLinksInHtmlFile(pathAbsFileOne).then((document) => {
+  console.log("getLinksInHtmlFile-docu", document);
+});
