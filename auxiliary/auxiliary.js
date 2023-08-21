@@ -1,6 +1,7 @@
 //  the file contains auxiliary functions
 const fs = require("fs");
 const path = require("path");
+const { marked } = require("marked");
 
 function isValidPath(inputPath) {
   const normalizePath = path.normalize(inputPath);
@@ -65,3 +66,27 @@ function hasMdFileExtension(inputAbsolutePath) {
 console.log("-----Example 3--------:hasMdFileExtension");
 console.log("hasMdFileExtension", hasMdFileExtension(pathAbs));
 console.log("hasMdFileExtension", hasMdFileExtension(pathAbsTwo));
+console.log("-----Example 4--------:convertMarkdownToHTML");
+const fsPromise = require("fs").promises;
+
+async function convertMarkdownToHTML(pathAbs) {
+  try {
+    const data = await fsPromise.readFile(pathAbs, { encoding: "utf8" });
+    const fileHtml = marked.parse(data);
+    return fileHtml;
+  } catch (error) {
+    return error;
+  }
+}
+
+const pathAbsFileOne = validateAbsolutePath(
+  "./../DEV008-md-links/testsMdLinks/file.md"
+);
+console.log("convertMarkdownToHTML");
+convertMarkdownToHTML(pathAbsFileOne)
+  .then((result) => {
+    console.log("example 4:", result);
+  })
+  .catch((error) => {
+    console.log(error);
+  });

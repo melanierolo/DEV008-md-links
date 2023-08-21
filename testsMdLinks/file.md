@@ -14,9 +14,19 @@
 
 ### Installation
 
+CLI:
+
+> npm install -g marked
+
+In-browser:
+
 > npm install marked
 
 > npm install @types/marked # For TypeScript projects
+
+## Demo:
+
+- [Demo](https://marked.js.org/demo)
 
 # JSDOM: Simulating a Browser Environment
 
