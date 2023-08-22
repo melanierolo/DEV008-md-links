@@ -97,16 +97,21 @@ const { JSDOM } = jsdom;
 
 async function getLinksInHtmlFile(pathAbsFileOne) {
   try {
-    let linksInHtml = [];
+    let linksObjectsArray = [];
     const htmlContent = await convertMarkdownToHTML(pathAbsFileOne);
     console.log("get HTML", htmlContent);
     const dom = new JSDOM(htmlContent, { includeNodeLocations: true }); // Include the option here
     const document = dom.window.document;
     const anchorElements = document.querySelectorAll("a");
     anchorElements.forEach((anchor) => {
-      linksInHtml.push(anchor.href);
+      const element = {
+        href: anchor.href,
+        text: anchor.text,
+        file: pathAbsFileOne,
+      };
+      linksObjectsArray.push(element);
     });
-    return linksInHtml;
+    return linksObjectsArray;
   } catch (error) {
     console.error(error);
   }
