@@ -156,27 +156,26 @@ function getLinksStatusArray(linkObjectsArray) {
         return newLink;
       })
       .catch((error) => {
-        console.log(error);
         newLink.ok = "FAIL";
         newLink.status = 0;
-        newLink.message = "Failed to fetch";
+        newLink.message = error.message;
         return newLink;
       });
   });
+
+  // devuelve una nueva promesa que se resuelve cuando todas las promesas en el arreglo se han resuelto
   return Promise.all(linksPromises);
 }
 
 const arrayOfLinks = getLinksInHtmlFile(pathAbsFileOne);
 
-getLinksStatusArray(arrayOfLinks)
-  .then((updatedLinks) => {
-    updatedLinks.forEach((link) => {
-      console.log("Link:", link.href);
-      console.log("Status:", link.status);
-      console.log("Error Details:", link.message);
-      console.log("----------");
+const arrayOfLinksWithStatus = getLinksStatusArray(arrayOfLinks).then(
+  (arrayLinks) => {
+    console.log("arrayLinks", arrayLinks);
+    arrayLinks.map((link) => {
+      return link;
     });
-  })
-  .catch((error) => {
-    console.error("Error:", error);
-  });
+  }
+);
+
+console.log("arrayOfLinksWithStatus", arrayOfLinksWithStatus);

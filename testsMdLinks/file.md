@@ -38,4 +38,5 @@ In-browser:
 
 ### Documentation
 
-- [JSDOM](https://www.js-dom.com/docu)
+- [JSDOM](https://github.com/jsdom/jsdom/noExiteRuta)
+- [JSDOM-docu](https://noExiste.com/jsdom/jsdom/noExiteRuta)
