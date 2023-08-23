@@ -111,3 +111,72 @@ function getLinksInHtmlFile(pathAbsFileOne) {
 }
 
 console.log(getLinksInHtmlFile(pathAbsFileOne));
+
+/*--------------Example 6 */
+console.log("---------------Example 6");
+const objectOfLink = {
+  href: "https://github.com/markedjs/marked",
+  text: "Marked",
+  file: "C:\\Users\\Usuario\\Documents\\Labo\\Proyectos\\4-dev008--md-links\\DEV008-md-links\\testsMdLinks\\file.md",
+};
+
+function checkLinkStatus(objectOfLink) {
+  return fetch(objectOfLink.href);
+}
+
+let newObjectLink = { ...objectOfLink };
+checkLinkStatus(objectOfLink)
+  .then((response) => {
+    console.log("response.status: ", response.status);
+    newObjectLink.ok = response.ok ? "OK" : "FAIL";
+    newObjectLink.status = response.status;
+    console.log(newObjectLink);
+    console.log("Link:", objectOfLink.href);
+    console.log("Status:", response.status);
+    console.log(
+      "Error Details:",
+      response.errorDetails || "No error details available"
+    );
+    console.log("----------");
+    return newObjectLink;
+  })
+  .catch((err) => {
+    console.log(err);
+    return err;
+  });
+
+function getLinksStatusArray(linkObjectsArray) {
+  const linksPromises = linkObjectsArray.map((link) => {
+    let newLink = { ...link };
+    return fetch(link.href)
+      .then((response) => {
+        newLink.ok = response.ok ? "OK" : "FAIL";
+        newLink.status = response.status;
+        newLink.message = response.statusText;
+        return newLink;
+      })
+      .catch((error) => {
+        console.log(error);
+        newLink.ok = "FAIL";
+        newLink.status = 0;
+        newLink.message = "Failed to fetch";
+        return newLink;
+      });
+  });
+  return Promise.all(linksPromises);
+}
+
+const arrayOfLinks = getLinksInHtmlFile(pathAbsFileOne);
+
+getLinksStatusArray(arrayOfLinks)
+  .then((updatedLinks) => {
+    updatedLinks.forEach((link) => {
+      console.log("Link:", link.href);
+      console.log("Status:", link.status);
+      console.log("Error Details:", link.message);
+      console.log("----------");
+    });
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
