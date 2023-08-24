@@ -127,10 +127,10 @@ function checkLinkStatus(objectOfLink) {
 let newObjectLink = { ...objectOfLink };
 checkLinkStatus(objectOfLink)
   .then((response) => {
-    console.log("response.status: ", response.status);
     newObjectLink.ok = response.ok ? "OK" : "FAIL";
     newObjectLink.status = response.status;
     console.log(newObjectLink);
+    console.log("response.status: ", response.status);
     console.log("Link:", objectOfLink.href);
     console.log("Status:", response.status);
     console.log(
@@ -167,15 +167,34 @@ function getLinksStatusArray(linkObjectsArray) {
   return Promise.all(linksPromises);
 }
 
+function calculateStatistics(arrayOfLinksWithStatus) {
+  const totalLinks = arrayOfLinksWithStatus.length;
+  const uniqueLinks = arrayOfLinksWithStatus.filter(
+    (element, index) => arrayOfLinksWithStatus.indexOf(element) === index
+  ).length;
+  return [{ Total: totalLinks, Unique: uniqueLinks }];
+}
+
+function calculateBrokenLinks(arrayOfLinksWithStatus) {
+  let count = 0;
+  arrayOfLinksWithStatus.forEach((link) => {
+    console.log("link.status", link.status);
+    if (link.status > 400 && link.status <= 500) {
+      count++;
+    }
+  });
+  return [{ Broken: count }];
+}
+
+// TESTS
 const arrayOfLinks = getLinksInHtmlFile(pathAbsFileOne);
 
 const arrayOfLinksWithStatus = getLinksStatusArray(arrayOfLinks).then(
   (arrayLinks) => {
     console.log("arrayLinks", arrayLinks);
-    arrayLinks.map((link) => {
-      return link;
-    });
+    console.log(calculateStatistics(arrayLinks));
+    console.log(calculateBrokenLinks(arrayLinks));
   }
 );
 
-console.log("arrayOfLinksWithStatus", arrayOfLinksWithStatus);
+console.log("arrayOfLinksWithStatus", arrayOfLinksWithStatus); // Promise
