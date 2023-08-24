@@ -25,7 +25,7 @@ function validateAbsolutePath(inputPath) {
     return convertToAbsPath(normalizePath);
   }
 }
-console.log("-------Example 0");
+/*console.log("-------Example 0");
 console.log("isValidPath:", isValidPath("./noExiste"));
 console.log("-------Example 1");
 console.log(
@@ -36,14 +36,14 @@ console.log(
   "validateAbsolutePath:",
   validateAbsolutePath("./../DEV008-md-links/testsMdLinks/folder/fileTwo.md")
 );
-
+*/
 function isFolder(inputAbsolutePath) {
   console.log(inputAbsolutePath);
   const status = fs.statSync(inputAbsolutePath);
   return status.isDirectory();
 }
 
-const pathAbs = validateAbsolutePath(
+/*const pathAbs = validateAbsolutePath(
   "./../DEV008-md-links/testsMdLinks/folder/fileTwo.md"
 );
 const pathAbsTwo = validateAbsolutePath(
@@ -51,7 +51,7 @@ const pathAbsTwo = validateAbsolutePath(
 );
 console.log("-----Example 2--------:isFolder");
 console.log("isFolder", isFolder(pathAbs));
-console.log("isFolder", isFolder(pathAbsTwo));
+console.log("isFolder", isFolder(pathAbsTwo));*/
 
 function hasMdFileExtension(inputAbsolutePath) {
   const inputLength = inputAbsolutePath.length;
@@ -62,11 +62,11 @@ function hasMdFileExtension(inputAbsolutePath) {
   console.log(`File extension: ${fileExtension}`);
   return fileExtension === ".md" ? true : false;
 }
-
+/*
 console.log("-----Example 3--------:hasMdFileExtension");
 console.log("hasMdFileExtension", hasMdFileExtension(pathAbs));
 console.log("hasMdFileExtension", hasMdFileExtension(pathAbsTwo));
-console.log("-----Example 4--------:convertMarkdownToHTML");
+console.log("-----Example 4--------:convertMarkdownToHTML");*/
 
 function convertMarkdownToHTML(pathAbs) {
   try {
@@ -77,14 +77,14 @@ function convertMarkdownToHTML(pathAbs) {
     return error;
   }
 }
-
+/*
 const pathAbsFileOne = validateAbsolutePath(
   "./../DEV008-md-links/testsMdLinks/file.md"
 );
 console.log("convertMarkdownToHTML");
 convertMarkdownToHTML(pathAbsFileOne);
 
-console.log("-----Example 5--------:getLinksInHtmlFile");
+console.log("-----Example 5--------:getLinksInHtmlFile");*/
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 
@@ -110,21 +110,21 @@ function getLinksInHtmlFile(pathAbsFileOne) {
   }
 }
 
-console.log(getLinksInHtmlFile(pathAbsFileOne));
+/*console.log(getLinksInHtmlFile(pathAbsFileOne));*/
 
 /*--------------Example 6 */
-console.log("---------------Example 6");
+/*console.log("---------------Example 6");
 const objectOfLink = {
   href: "https://github.com/markedjs/marked",
   text: "Marked",
   file: "C:\\Users\\Usuario\\Documents\\Labo\\Proyectos\\4-dev008--md-links\\DEV008-md-links\\testsMdLinks\\file.md",
-};
+};*/
 
 function checkLinkStatus(objectOfLink) {
   return fetch(objectOfLink.href);
 }
 
-let newObjectLink = { ...objectOfLink };
+/*let newObjectLink = { ...objectOfLink };
 checkLinkStatus(objectOfLink)
   .then((response) => {
     newObjectLink.ok = response.ok ? "OK" : "FAIL";
@@ -143,7 +143,7 @@ checkLinkStatus(objectOfLink)
   .catch((err) => {
     console.log(err);
     return err;
-  });
+  });*/
 
 function getLinksStatusArray(linkObjectsArray) {
   const linksPromises = linkObjectsArray.map((link) => {
@@ -179,7 +179,7 @@ function calculateBrokenLinks(arrayOfLinksWithStatus) {
   let count = 0;
   arrayOfLinksWithStatus.forEach((link) => {
     console.log("link.status", link.status);
-    if (link.status > 400 && link.status <= 500) {
+    if (link.status !== 200) {
       count++;
     }
   });
@@ -187,7 +187,7 @@ function calculateBrokenLinks(arrayOfLinksWithStatus) {
 }
 
 // TESTS
-const arrayOfLinks = getLinksInHtmlFile(pathAbsFileOne);
+/*const arrayOfLinks = getLinksInHtmlFile(pathAbsFileOne);
 
 const arrayOfLinksWithStatus = getLinksStatusArray(arrayOfLinks).then(
   (arrayLinks) => {
@@ -198,3 +198,7 @@ const arrayOfLinksWithStatus = getLinksStatusArray(arrayOfLinks).then(
 );
 
 console.log("arrayOfLinksWithStatus", arrayOfLinksWithStatus); // Promise
+*/
+module.exports = {
+  getLinksStatusArray,
+};

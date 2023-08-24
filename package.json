@@ -10,8 +10,12 @@
     "commit": "a942adeb868f1fe54b86e34cc4fc4ddb0601700d"
   },
   "dependencies": {
+    "jest": "^29.6.4",
     "jsdom": "^22.1.0",
     "marked": "^7.0.4",
     "node-fetch": "^3.3.2"
+  },
+  "scripts": {
+    "test": "jest"
   }
 }
