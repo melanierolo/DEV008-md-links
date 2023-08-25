@@ -196,5 +196,6 @@ console.log("arrayOfLinksWithStatus", arrayOfLinksWithStatus); // Promise
 */
 module.exports = {
   isValidPath,
+  convertToAbsPath,
   getLinksStatusArray,
 };
