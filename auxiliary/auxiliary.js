@@ -2,7 +2,6 @@
 const fs = require("fs");
 const path = require("path");
 const fetch = require("node-fetch");
-const marked = require("marked");
 
 function isValidPath(inputPath) {
   const normalizePath = path.normalize(inputPath);
@@ -26,6 +25,11 @@ function validateAbsolutePath(inputPath) {
     return convertToAbsPath(normalizePath);
   }
 }
+
+const pathAbsFileOne = validateAbsolutePath(
+  "./../DEV008-md-links/testsMdLinks/file.md"
+);
+console.log(pathAbsFileOne);
 
 function isFolder(inputAbsolutePath) {
   console.log(inputAbsolutePath);
@@ -51,50 +55,6 @@ console.log("-----Example 3--------:hasMdFileExtension");
 console.log("hasMdFileExtension", hasMdFileExtension(pathAbs));
 console.log("hasMdFileExtension", hasMdFileExtension(pathAbsTwo));
 console.log("-----Example 4--------:convertMarkdownToHTML");*/
-
-function convertMarkdownToHTML(pathAbs) {
-  try {
-    const data = fs.readFileSync(pathAbs, { encoding: "utf8" });
-    const fileHtml = marked.parse(data);
-    return fileHtml;
-  } catch (error) {
-    return error;
-  }
-}
-/*
-const pathAbsFileOne = validateAbsolutePath(
-  "./../DEV008-md-links/testsMdLinks/file.md"
-);
-console.log("convertMarkdownToHTML");
-convertMarkdownToHTML(pathAbsFileOne);
-
-console.log("-----Example 5--------:getLinksInHtmlFile");*/
-/*const jsdom = require("jsdom");
-const { JSDOM } = jsdom;*/
-
-function getLinksInHtmlFile(pathAbsFileOne) {
-  try {
-    let linksObjectsArray = [];
-    const htmlContent = convertMarkdownToHTML(pathAbsFileOne);
-    console.log("get HTML", htmlContent);
-    const dom = new JSDOM(htmlContent, { includeNodeLocations: true }); // Include the option here
-    const document = dom.window.document;
-    const anchorElements = document.querySelectorAll("a");
-    anchorElements.forEach((anchor) => {
-      const element = {
-        href: anchor.href,
-        text: anchor.text,
-        file: pathAbsFileOne,
-      };
-      linksObjectsArray.push(element);
-    });
-    return linksObjectsArray;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-/*console.log(getLinksInHtmlFile(pathAbsFileOne));*/
 
 /*--------------Example 6 */
 /*console.log("---------------Example 6");
