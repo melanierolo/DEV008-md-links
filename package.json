@@ -4,18 +4,21 @@
   "engines": {
     "node": ">=16.x"
   },
+  "license": "MIT",
   "bootcamp": {
     "createdAt": "2023-06-28T16:05:09.952Z",
     "version": "6.3.0",
     "commit": "a942adeb868f1fe54b86e34cc4fc4ddb0601700d"
   },
   "dependencies": {
+    "@babel/preset-env": "^7.22.10",
     "jest": "^29.6.4",
+    "jest-environment-jsdom": "^29.6.4",
     "jsdom": "^22.1.0",
     "marked": "^7.0.4",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^2.7.0"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest --env=jsdom --coverage"
   }
 }

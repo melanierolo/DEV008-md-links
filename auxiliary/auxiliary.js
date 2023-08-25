@@ -1,7 +1,8 @@
 //  the file contains auxiliary functions
 const fs = require("fs");
 const path = require("path");
-const { marked } = require("marked");
+const fetch = require("node-fetch");
+const marked = require("marked");
 
 function isValidPath(inputPath) {
   const normalizePath = path.normalize(inputPath);
@@ -25,25 +26,19 @@ function validateAbsolutePath(inputPath) {
     return convertToAbsPath(normalizePath);
   }
 }
-/*console.log("-------Example 0");
-console.log("isValidPath:", isValidPath("./noExiste"));
-console.log("-------Example 1");
-console.log(
-  "isValidPath:",
-  isValidPath("./../DEV008-md-links/testsMdLinks/folder/fileTwo.md")
-);
-console.log(
-  "validateAbsolutePath:",
-  validateAbsolutePath("./../DEV008-md-links/testsMdLinks/folder/fileTwo.md")
-);
-*/
+
 function isFolder(inputAbsolutePath) {
   console.log(inputAbsolutePath);
   const status = fs.statSync(inputAbsolutePath);
   return status.isDirectory();
 }
 
-/*const pathAbs = validateAbsolutePath(
+/*
+console.log(
+  "validateAbsolutePath:",
+  validateAbsolutePath("./../DEV008-md-links/testsMdLinks/folder/fileTwo.md")
+);
+const pathAbs = validateAbsolutePath(
   "./../DEV008-md-links/testsMdLinks/folder/fileTwo.md"
 );
 const pathAbsTwo = validateAbsolutePath(
@@ -85,8 +80,8 @@ console.log("convertMarkdownToHTML");
 convertMarkdownToHTML(pathAbsFileOne);
 
 console.log("-----Example 5--------:getLinksInHtmlFile");*/
-const jsdom = require("jsdom");
-const { JSDOM } = jsdom;
+/*const jsdom = require("jsdom");
+const { JSDOM } = jsdom;*/
 
 function getLinksInHtmlFile(pathAbsFileOne) {
   try {
@@ -200,5 +195,6 @@ const arrayOfLinksWithStatus = getLinksStatusArray(arrayOfLinks).then(
 console.log("arrayOfLinksWithStatus", arrayOfLinksWithStatus); // Promise
 */
 module.exports = {
+  isValidPath,
   getLinksStatusArray,
 };

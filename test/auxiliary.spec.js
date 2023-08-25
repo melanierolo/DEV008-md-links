@@ -1,7 +1,14 @@
-const mdLinks = require("..");
-
+const { isValidPath } = require("../auxiliary/auxiliary.js");
 const { getLinksStatusArray } = require("../auxiliary/auxiliary.js");
 
+describe("Tests about paths", () => {
+  it("Check if the path is valid", () => {
+    const pathOne = "./noExiste";
+    const pathTwo = "./../DEV008-md-links/testsMdLinks/folder/fileTwo.md";
+    expect(isValidPath(pathOne)).toBe(false);
+    expect(isValidPath(pathTwo)).toBe(true);
+  });
+});
 describe("Link Status", () => {
   it("It should return an array of objects, and each element should have the status of the link", () => {
     const arrayObjLinks = [
