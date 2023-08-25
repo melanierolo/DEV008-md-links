@@ -1,4 +1,5 @@
-const { isValidPath } = require("../auxiliary/auxiliary.js");
+const path = require("path");
+const { isValidPath, convertToAbsPath } = require("../auxiliary/auxiliary.js");
 const { getLinksStatusArray } = require("../auxiliary/auxiliary.js");
 
 describe("Tests about paths", () => {
@@ -9,6 +10,22 @@ describe("Tests about paths", () => {
     expect(isValidPath(pathTwo)).toBe(true);
   });
 });
+
+describe("Convert relative paths to absolute paths", () => {
+  it("should convert a relative path to an absolute path", () => {
+    const relativePath = "./DEV008-md-links/testsMdLinks/folder/file.txt";
+    const expectedAbsPath = path.resolve(relativePath);
+
+    expect(convertToAbsPath(relativePath)).toBe(expectedAbsPath);
+  });
+
+  it("should return the same path for an absolute path", () => {
+    const absolutePath = "C:\\user\\documents\\file.txt";
+
+    expect(convertToAbsPath(absolutePath)).toBe(absolutePath);
+  });
+});
+
 describe("Link Status", () => {
   it("It should return an array of objects, and each element should have the status of the link", () => {
     const arrayObjLinks = [
