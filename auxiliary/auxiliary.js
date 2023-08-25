@@ -198,4 +198,5 @@ module.exports = {
   isValidPath,
   convertToAbsPath,
   getLinksStatusArray,
+  calculateBrokenLinks,
 };
