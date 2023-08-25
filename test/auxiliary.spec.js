@@ -1,6 +1,10 @@
 const path = require("path");
 const { isValidPath, convertToAbsPath } = require("../auxiliary/auxiliary.js");
 const { getLinksStatusArray } = require("../auxiliary/auxiliary.js");
+const {
+  calculateStatistics,
+  calculateBrokenLinks,
+} = require("../auxiliary/auxiliary.js");
 
 describe("Tests about paths", () => {
   it("Check if the path is valid", () => {
@@ -87,5 +91,78 @@ describe("Link Status", () => {
         },
       ]);
     });
+  });
+});
+
+describe("Tests for Statistics of the Array of Link Objects", () => {
+  it("It should return an object containing the count of total and unique links", () => {
+    const arrayObjLinks = [
+      {
+        href: "https://github.com/jsdom/jsdom/noExiteRuta",
+        text: "Marked",
+        file: "C:\\Users\\Usuario\\Documents\\Labo\\Proyectos\\4-dev008--md-links\\DEV008-md-links\\testsMdLinks\\file.md",
+        ok: "FAIL",
+        status: 404,
+        message: "Not Found",
+      },
+      {
+        href: "https://github.com/markedjs/marked",
+        text: "Marked - repository",
+        file: "C:\\Users\\Usuario\\Documents\\Labo\\Proyectos\\4-dev008--md-links\\DEV008-md-links\\testsMdLinks\\file.md",
+        ok: "OK",
+        status: 200,
+        message: "OK",
+      },
+      {
+        href: "https://github.com/jsdom/jsdom/noExiteRuta",
+        text: "JSDOM",
+        file: "C:\\Users\\Usuario\\Documents\\Labo\\Proyectos\\4-dev008--md-links\\DEV008-md-links\\testsMdLinks\\file.md",
+        ok: "FAIL",
+        status: 404,
+        message: "Not Found",
+      },
+      {
+        href: "https://github.com/jsdom/jsdom/noExiteRuta",
+        text: "JSDOM",
+        file: "C:\\Users\\Usuario\\Documents\\Labo\\Proyectos\\4-dev008--md-links\\DEV008-md-links\\testsMdLinks\\file.md",
+        ok: "FAIL",
+        status: 404,
+        message: "Not Found",
+      },
+    ];
+    const result = [{ Total: 4, Unique: 2 }];
+
+    expect(calculateStatistics(arrayObjLinks)).toEqual(result);
+  });
+  it("It should return an object containing the count of broken links", () => {
+    const arrayObjLinks = [
+      {
+        href: "https://github.com/jsdom/jsdom/noExiteRuta",
+        text: "JSDOM",
+        file: "C:\\Users\\Usuario\\Documents\\Labo\\Proyectos\\4-dev008--md-links\\DEV008-md-links\\testsMdLinks\\file.md",
+        ok: "FAIL",
+        status: 404,
+        message: "Not Found",
+      },
+      {
+        href: "https://github.com/markedjs/marked",
+        text: "Marked - repository",
+        file: "C:\\Users\\Usuario\\Documents\\Labo\\Proyectos\\4-dev008--md-links\\DEV008-md-links\\testsMdLinks\\file.md",
+        ok: "OK",
+        status: 200,
+        message: "OK",
+      },
+      {
+        href: "https://github.com/jsdom/jsdom/noExiteRuta",
+        text: "JSDOM",
+        file: "C:\\Users\\Usuario\\Documents\\Labo\\Proyectos\\4-dev008--md-links\\DEV008-md-links\\testsMdLinks\\file.md",
+        ok: "FAIL",
+        status: 404,
+        message: "Not Found",
+      },
+    ];
+    const result = [{ Broken: 2 }];
+
+    expect(calculateBrokenLinks(arrayObjLinks)).toEqual(result);
   });
 });

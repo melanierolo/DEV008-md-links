@@ -163,10 +163,15 @@ function getLinksStatusArray(linkObjectsArray) {
 }
 
 function calculateStatistics(arrayOfLinksWithStatus) {
+  // Calculate the total number of links in the array
   const totalLinks = arrayOfLinksWithStatus.length;
+  // Create an array containing all the href values from the links
+  const linksArray = arrayOfLinksWithStatus.map((element) => element.href);
+  // Filter unique links (without duplicates)
   const uniqueLinks = arrayOfLinksWithStatus.filter(
-    (element, index) => arrayOfLinksWithStatus.indexOf(element) === index
+    ({ href }, index) => !linksArray.includes(href, index + 1)
   ).length;
+
   return [{ Total: totalLinks, Unique: uniqueLinks }];
 }
 
@@ -198,4 +203,6 @@ module.exports = {
   isValidPath,
   convertToAbsPath,
   getLinksStatusArray,
+  calculateStatistics,
+  calculateBrokenLinks,
 };
