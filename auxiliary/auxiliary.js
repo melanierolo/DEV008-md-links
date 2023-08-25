@@ -33,18 +33,7 @@ function isFolder(inputAbsolutePath) {
   return status.isDirectory();
 }
 
-/*
-console.log(
-  "validateAbsolutePath:",
-  validateAbsolutePath("./../DEV008-md-links/testsMdLinks/folder/fileTwo.md")
-);
-const pathAbs = validateAbsolutePath(
-  "./../DEV008-md-links/testsMdLinks/folder/fileTwo.md"
-);
-const pathAbsTwo = validateAbsolutePath(
-  "./../DEV008-md-links/testsMdLinks/folder"
-);
-console.log("-----Example 2--------:isFolder");
+/*console.log("-----Example 2--------:isFolder");
 console.log("isFolder", isFolder(pathAbs));
 console.log("isFolder", isFolder(pathAbsTwo));*/
 
@@ -202,6 +191,7 @@ console.log("arrayOfLinksWithStatus", arrayOfLinksWithStatus); // Promise
 module.exports = {
   isValidPath,
   convertToAbsPath,
+  validateAbsolutePath,
   getLinksStatusArray,
   calculateStatistics,
   calculateBrokenLinks,

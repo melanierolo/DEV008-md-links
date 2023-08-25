@@ -1,5 +1,9 @@
 const path = require("path");
-const { isValidPath, convertToAbsPath } = require("../auxiliary/auxiliary.js");
+const {
+  isValidPath,
+  convertToAbsPath,
+  validateAbsolutePath,
+} = require("../auxiliary/auxiliary.js");
 const { getLinksStatusArray } = require("../auxiliary/auxiliary.js");
 const {
   calculateStatistics,
@@ -22,11 +26,21 @@ describe("Convert relative paths to absolute paths", () => {
 
     expect(convertToAbsPath(relativePath)).toBe(expectedAbsPath);
   });
+});
+describe("Tests to validate if the path is an absolute path", () => {
+  it("It should return an absolute path to a file", () => {
+    const relativePath = "./../DEV008-md-links/testsMdLinks/file.md";
+    const expectedAbsPath =
+      "C:\\Users\\Usuario\\Documents\\Labo\\Proyectos\\4-dev008--md-links\\DEV008-md-links\\testsMdLinks\\file.md";
 
-  it("should return the same path for an absolute path", () => {
-    const absolutePath = "C:\\user\\documents\\file.txt";
+    expect(convertToAbsPath(relativePath)).toBe(expectedAbsPath);
+  });
+  it("It should return an absolute path to a folder", () => {
+    const relativePath = "./../DEV008-md-links/testsMdLinks/folder";
+    const expectedAbsPath =
+      "C:\\Users\\Usuario\\Documents\\Labo\\Proyectos\\4-dev008--md-links\\DEV008-md-links\\testsMdLinks\\folder";
 
-    expect(convertToAbsPath(absolutePath)).toBe(absolutePath);
+    expect(convertToAbsPath(relativePath)).toBe(expectedAbsPath);
   });
 });
 
