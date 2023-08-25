@@ -33,14 +33,14 @@ describe("Tests to validate if the path is an absolute path", () => {
     const expectedAbsPath =
       "C:\\Users\\Usuario\\Documents\\Labo\\Proyectos\\4-dev008--md-links\\DEV008-md-links\\testsMdLinks\\file.md";
 
-    expect(convertToAbsPath(relativePath)).toBe(expectedAbsPath);
+    expect(validateAbsolutePath(relativePath)).toBe(expectedAbsPath);
   });
   it("It should return an absolute path to a folder", () => {
     const relativePath = "./../DEV008-md-links/testsMdLinks/folder";
     const expectedAbsPath =
       "C:\\Users\\Usuario\\Documents\\Labo\\Proyectos\\4-dev008--md-links\\DEV008-md-links\\testsMdLinks\\folder";
 
-    expect(convertToAbsPath(relativePath)).toBe(expectedAbsPath);
+    expect(validateAbsolutePath(relativePath)).toBe(expectedAbsPath);
   });
 });
 
