@@ -103,8 +103,7 @@ function hasMdFileExtension(inputAbsolutePath) {
 /*
 console.log("-----Example 3--------:hasMdFileExtension");
 console.log("hasMdFileExtension", hasMdFileExtension(pathAbs));
-console.log("hasMdFileExtension", hasMdFileExtension(pathAbsTwo));
-console.log("-----Example 4--------:convertMarkdownToHTML");*/
+console.log("hasMdFileExtension", hasMdFileExtension(pathAbsTwo));*/
 
 /*--------------Example 6 */
 /*console.log("---------------Example 6");

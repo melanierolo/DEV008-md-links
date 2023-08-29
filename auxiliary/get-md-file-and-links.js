@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const marked = require("marked");
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
