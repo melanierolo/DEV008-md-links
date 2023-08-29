@@ -41,6 +41,20 @@ function isFolder(inputAbsolutePath) {
 console.log("isFolder", isFolder(pathAbs));
 console.log("isFolder", isFolder(pathAbsTwo));*/
 
+function readContentDirectory(directoryAbsPath) {
+  let subdirectories = [];
+  subdirectories = fs.readdirSync(directoryAbsPath).map((fileName) => {
+    return path.join(directoryAbsPath, fileName);
+  });
+  return subdirectories;
+}
+
+// Test
+console.log("Test---readContentDirectory");
+const absPathThree =
+  "C:\\Users\\Usuario\\Documents\\Labo\\Proyectos\\4-dev008--md-links\\DEV008-md-links\\testsMdLinks";
+console.log(readContentDirectory(absPathThree));
+
 function hasMdFileExtension(inputAbsolutePath) {
   const inputLength = inputAbsolutePath.length;
   const fileExtension = inputAbsolutePath.slice(inputLength - 3, inputLength);
