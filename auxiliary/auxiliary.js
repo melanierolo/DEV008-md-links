@@ -55,6 +55,42 @@ const absPathThree =
   "C:\\Users\\Usuario\\Documents\\Labo\\Proyectos\\4-dev008--md-links\\DEV008-md-links\\testsMdLinks";
 console.log(readContentDirectory(absPathThree));
 
+function getAllPathOfFileInDirectory(absPathOfFolder) {
+  const arrayOfPaths = readContentDirectory(absPathOfFolder);
+  const someElementIsFolder = arrayOfPaths.some((element) => isFolder(element));
+
+  if (!someElementIsFolder) {
+    return arrayOfPaths;
+  } else {
+    const fileElements = arrayOfPaths.filter((element) => !isFolder(element));
+    const folderElements = arrayOfPaths.filter((element) => isFolder(element));
+
+    // Process each folder element recursively and, thanks to flatMap, prevent the formation of nested arrays
+    const subFolderPaths = folderElements.flatMap((folderPath) => {
+      return getAllPathOfFileInDirectory(folderPath);
+    });
+
+    // It combines the paths of files and the paths of files within subdirectories
+    return [...fileElements, ...subFolderPaths];
+  }
+}
+
+// Test
+console.log("Test 1 -baseCase:--getAllPathOfFileInDirectory");
+const absPathFour =
+  "C:\\Users\\Usuario\\Documents\\Labo\\Proyectos\\4-dev008--md-links\\DEV008-md-links\\testsMdLinks\\FolderFiles";
+console.log(getAllPathOfFileInDirectory(absPathFour));
+
+console.log("Test 2 : getAllPathOfFileInDirectory");
+const absPathFive =
+  "C:\\Users\\Usuario\\Documents\\Labo\\Proyectos\\4-dev008--md-links\\DEV008-md-links\\testsMdLinks\\FolderParent";
+console.log(getAllPathOfFileInDirectory(absPathFive));
+
+console.log("Test 3 : getAllPathOfFileInDirectory");
+const absPathSix =
+  "C:\\Users\\Usuario\\Documents\\Labo\\Proyectos\\4-dev008--md-links\\DEV008-md-links\\testsMdLinks";
+console.log(getAllPathOfFileInDirectory(absPathSix));
+
 function hasMdFileExtension(inputAbsolutePath) {
   const inputLength = inputAbsolutePath.length;
   const fileExtension = inputAbsolutePath.slice(inputLength - 3, inputLength);
@@ -67,8 +103,7 @@ function hasMdFileExtension(inputAbsolutePath) {
 /*
 console.log("-----Example 3--------:hasMdFileExtension");
 console.log("hasMdFileExtension", hasMdFileExtension(pathAbs));
-console.log("hasMdFileExtension", hasMdFileExtension(pathAbsTwo));
-console.log("-----Example 4--------:convertMarkdownToHTML");*/
+console.log("hasMdFileExtension", hasMdFileExtension(pathAbsTwo));*/
 
 /*--------------Example 6 */
 /*console.log("---------------Example 6");
