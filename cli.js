@@ -31,3 +31,12 @@ mdLinks("./testsMdLinks/file.md")
   .catch((error) => {
     console.log("error", error);
   });
+
+console.log("Case 4 :The path exists and is an absolute path to a directory");
+mdLinks("./testsMdLinks")
+  .then((result) => {
+    console.log("result", result);
+  })
+  .catch((error) => {
+    console.log("error", error);
+  });

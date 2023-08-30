@@ -197,6 +197,7 @@ module.exports = {
   convertToAbsPath,
   validateAbsolutePath,
   isFolder,
+  getAllPathOfFileInDirectory,
   hasMdFileExtension,
   getLinksStatusArray,
   calculateStatistics,
