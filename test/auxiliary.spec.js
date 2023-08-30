@@ -13,7 +13,8 @@ const {
 describe("Tests about paths", () => {
   it("Check if the path is valid", () => {
     const pathOne = "./noExiste";
-    const pathTwo = "./../DEV008-md-links/testsMdLinks/folder/fileTwo.md";
+    const pathTwo =
+      "./../DEV008-md-links/testsMdLinks/folderParent/fileParentOne.md";
     expect(isValidPath(pathOne)).toBe(false);
     expect(isValidPath(pathTwo)).toBe(true);
   });
