@@ -8,7 +8,6 @@ function isValidPath(inputPath) {
   if (fs.existsSync(normalizePath)) {
     return true;
   } else {
-    console.log("Path cannot be empty o doesn't exist");
     return false;
   }
 }
@@ -32,7 +31,6 @@ const pathAbsFileOne = validateAbsolutePath(
 console.log(pathAbsFileOne);
 
 function isFolder(inputAbsolutePath) {
-  console.log(inputAbsolutePath);
   const status = fs.statSync(inputAbsolutePath);
   return status.isDirectory();
 }
@@ -94,10 +92,7 @@ console.log(getAllPathOfFileInDirectory(absPathSix));
 function hasMdFileExtension(inputAbsolutePath) {
   const inputLength = inputAbsolutePath.length;
   const fileExtension = inputAbsolutePath.slice(inputLength - 3, inputLength);
-  console.log(
-    `[inputAbsolutePath-inputLength]:${inputAbsolutePath}--${inputLength}`
-  );
-  console.log(`File extension: ${fileExtension}`);
+
   return fileExtension === ".md" ? true : false;
 }
 /*
@@ -201,6 +196,8 @@ module.exports = {
   isValidPath,
   convertToAbsPath,
   validateAbsolutePath,
+  isFolder,
+  hasMdFileExtension,
   getLinksStatusArray,
   calculateStatistics,
   calculateBrokenLinks,

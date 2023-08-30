@@ -1,10 +1,29 @@
-const fs = require("fs");
+const {
+  isValidPath,
+  validateAbsolutePath,
+  isFolder,
+  hasMdFileExtension,
+  getLinksStatusArray,
+} = require("./auxiliary/auxiliary.js");
+const { getLinksInHtmlFile } = require("./auxiliary/get-md-file-and-links.js");
 
 const mdLinks = (path, options) => {
   return new Promise((resolve, reject) => {
-    if (fs.existsSync(path)) {
+    if (isValidPath(path)) {
+      const absolutePath = validateAbsolutePath(path);
+      if (isFolder(absolutePath)) {
+        console.log("isFolder");
+      } else {
+        if (hasMdFileExtension(absolutePath)) {
+          const linksOfFile = getLinksInHtmlFile(absolutePath);
+          const arrayLinksWithStatus = getLinksStatusArray(linksOfFile);
+          resolve(arrayLinksWithStatus);
+        } else {
+          reject("The file does not have an .md extension");
+        }
+      }
     } else {
-      reject("The route doen't exist.");
+      reject("The path doesn't exist.");
     }
   });
 };
