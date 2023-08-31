@@ -1,5 +1,4 @@
 const fs = require("fs");
-const path = require("path");
 const marked = require("marked");
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
@@ -18,7 +17,6 @@ function getLinksInHtmlFile(pathAbsFileOne) {
   try {
     let linksObjectsArray = [];
     const htmlContent = convertMarkdownToHTML(pathAbsFileOne);
-    console.log("get HTML", htmlContent);
     const dom = new JSDOM(htmlContent, { includeNodeLocations: true }); // Include the option here
     const document = dom.window.document;
     const anchorElements = document.querySelectorAll("a");
