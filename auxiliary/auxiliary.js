@@ -171,7 +171,6 @@ function calculateStatistics(arrayOfLinksWithStatus) {
 function calculateBrokenLinks(arrayOfLinksWithStatus) {
   let count = 0;
   arrayOfLinksWithStatus.forEach((link) => {
-    console.log("link.status", link.status);
     if (link.status !== 200) {
       count++;
     }
