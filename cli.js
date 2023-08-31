@@ -7,7 +7,7 @@ mdLinks("/noExiste/", { validate: false, stats: false })
     console.log("result-1", result);
   })
   .catch((error) => {
-    console.log(error);
+    console.log("error 1", error);
   });
 
 console.log(
@@ -18,7 +18,7 @@ mdLinks("./testsMdLinks/file.txt", { validate: false, stats: false })
     console.log("result-2", result);
   })
   .catch((error) => {
-    console.log(error);
+    console.log("error-2", error);
   });
 
 console.log(
@@ -29,7 +29,7 @@ mdLinks("./testsMdLinks/file.md", { validate: false, stats: false })
     console.log("result 3-1", result);
   })
   .catch((error) => {
-    console.log("error", error);
+    console.log("error 3-1", error);
   });
 
 console.log(
@@ -40,7 +40,7 @@ mdLinks("./testsMdLinks/file.md", { validate: true, stats: false })
     console.log("result-3-2", result);
   })
   .catch((error) => {
-    console.log("error", error);
+    console.log("error 3-2", error);
   });
 
 console.log(
@@ -51,17 +51,17 @@ mdLinks("./testsMdLinks/file.md", { validate: false, stats: true })
     console.log("result-3-3", result);
   })
   .catch((error) => {
-    console.log("error", error);
+    console.log("error 3-3", error);
   });
 console.log(
   "Case 3 -4:The path exists and is an absolute path to a .md file. with options: validate and stats"
 );
 mdLinks("./testsMdLinks/file.md", { validate: true, stats: true })
   .then((result) => {
-    console.log("result-3-2", result);
+    console.log("result-3-4", result);
   })
   .catch((error) => {
-    console.log("error", error);
+    console.log("error 3-4", error);
   });
 
 console.log("Case 4-1:The path exists and is an absolute path to a directory");
@@ -70,7 +70,7 @@ mdLinks("./testsMdLinks", { validate: false, stats: false })
     console.log("result-4-1", result);
   })
   .catch((error) => {
-    console.log("error", error);
+    console.log("error 4-1", error);
   });
 
 console.log(
@@ -81,7 +81,7 @@ mdLinks("./testsMdLinks/folderParent", { validate: true, stats: false })
     console.log("result-4-2", result);
   })
   .catch((error) => {
-    console.log("error", error);
+    console.log("error 4-2", error);
   });
 
 console.log(
@@ -89,10 +89,10 @@ console.log(
 );
 mdLinks("./testsMdLinks/folderParent", { validate: false, stats: true })
   .then((result) => {
-    console.log("result-4-2", result);
+    console.log("result-4-3", result);
   })
   .catch((error) => {
-    console.log("error", error);
+    console.log("error 4-3", error);
   });
 
 console.log(
@@ -100,8 +100,8 @@ console.log(
 );
 mdLinks("./testsMdLinks/folderParent", { validate: true, stats: true })
   .then((result) => {
-    console.log("result-4-2", result);
+    console.log("result-4-4", result);
   })
   .catch((error) => {
-    console.log("error", error);
+    console.log("error 4-4", error);
   });

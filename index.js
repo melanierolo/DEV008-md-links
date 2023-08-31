@@ -16,8 +16,26 @@ const mdLinks = (path, options) => {
   return new Promise((resolve, reject) => {
     if (isValidPath(path)) {
       const absolutePath = validateAbsolutePath(path);
-      // ------------ Folder ------------
-      if (isFolder(absolutePath)) {
+
+      // ------------------------ Folder ------------------------
+
+      if (isFolder(absolutePath) && validate === false && stats === false) {
+        // Folder - Without options
+        const allFiles = getAllPathOfFileInDirectory(absolutePath);
+        const allPathsOfMDFiles = allFiles.filter((element) =>
+          hasMdFileExtension(element)
+        );
+        const arrayLinksInFiles = allPathsOfMDFiles.map((pathofMDFile) => {
+          const linksOfFile = getLinksInHtmlFile(pathofMDFile);
+          return linksOfFile;
+        });
+
+        resolve(arrayLinksInFiles);
+      } else if (
+        isFolder(absolutePath) &&
+        (validate === true || stats === true)
+      ) {
+        // Folder - Options
         const allFiles = getAllPathOfFileInDirectory(absolutePath);
         const allPathsOfMDFiles = allFiles.filter((element) =>
           hasMdFileExtension(element)
@@ -33,27 +51,22 @@ const mdLinks = (path, options) => {
 
         Promise.all(promises)
           .then(() => {
-            // Options
-            if (validate === false && stats === false) {
-              console.log("falta sin el validate");
-            } /*else if (validate === true && stats === false) {
+            if (validate === true && stats === false) {
               resolve(arrayLinksWithStatus);
             } else if (validate === false && stats === true) {
-              getLinksStatusArray(linksOfFile).then((arrayResult) => {
-                const arrayLinksStatistics = calculateStatistics(arrayResult);
+              const arrayLinksStatistics =
+                calculateStatistics(arrayLinksWithStatus);
 
-                resolve(arrayLinksStatistics);
-              });
+              resolve(arrayLinksStatistics);
             } else if (validate === true && stats === true) {
-              getLinksStatusArray(linksOfFile).then((arrayResult) => {
-                const arrayLinksStatistics = calculateStatistics(arrayResult);
-                const arrayLinksBroken = calculateBrokenLinks(arrayResult);
-                arrayLinksStatistics[0]["Broken"] =
-                  arrayLinksBroken[0]["Broken"];
+              const arrayLinksStatistics =
+                calculateStatistics(arrayLinksWithStatus);
+              const arrayLinksBroken =
+                calculateBrokenLinks(arrayLinksWithStatus);
+              arrayLinksStatistics[0]["Broken"] = arrayLinksBroken[0]["Broken"];
 
-                resolve([...arrayLinksStatistics]);
-              });
-            } */ else {
+              resolve([...arrayLinksStatistics]);
+            } else {
               reject("The file does not have an .md extension");
             }
           })
@@ -61,22 +74,22 @@ const mdLinks = (path, options) => {
             reject(error);
           });
       } else {
-        // ------------ File ------------
-        // Options
+        // ------------------------ File ------------------------
+        const linksOfFile = getLinksInHtmlFile(absolutePath);
+
         if (
           hasMdFileExtension(absolutePath) &&
           validate === false &&
           stats === false
         ) {
-          const linksOfFile = getLinksInHtmlFile(absolutePath);
-
+          // File -without Options
           resolve(linksOfFile);
         } else if (
           hasMdFileExtension(absolutePath) &&
           validate === true &&
           stats === false
         ) {
-          const linksOfFile = getLinksInHtmlFile(absolutePath);
+          // File -Options
           const arrayLinksWithStatus = getLinksStatusArray(linksOfFile);
 
           resolve(arrayLinksWithStatus);
@@ -85,7 +98,6 @@ const mdLinks = (path, options) => {
           validate === false &&
           stats === true
         ) {
-          const linksOfFile = getLinksInHtmlFile(absolutePath);
           getLinksStatusArray(linksOfFile).then((arrayResult) => {
             const arrayLinksStatistics = calculateStatistics(arrayResult);
 
@@ -96,7 +108,6 @@ const mdLinks = (path, options) => {
           validate === true &&
           stats === true
         ) {
-          const linksOfFile = getLinksInHtmlFile(absolutePath);
           getLinksStatusArray(linksOfFile).then((arrayResult) => {
             const arrayLinksStatistics = calculateStatistics(arrayResult);
             const arrayLinksBroken = calculateBrokenLinks(arrayResult);
