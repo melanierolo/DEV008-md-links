@@ -28,10 +28,12 @@ const mdLinks = (path, options) => {
         const allPathsOfMDFiles = allFiles.filter((element) =>
           hasMdFileExtension(element)
         );
-        const arrayLinksInFiles = allPathsOfMDFiles.map((pathofMDFile) => {
+        let arrayLinksInFiles = [];
+        allPathsOfMDFiles.forEach((pathofMDFile) => {
           const linksOfFile = getLinksInHtmlFile(pathofMDFile);
-          return linksOfFile;
+          arrayLinksInFiles.push(...linksOfFile);
         });
+
         arrayLinksInFiles.length === 0
           ? reject("There are no files with the .md extension.")
           : resolve(arrayLinksInFiles);
@@ -56,13 +58,16 @@ const mdLinks = (path, options) => {
         Promise.all(promises)
           .then(() => {
             if (validate === true && stats === false) {
+              // Folder - Options: validate
               resolve(arrayLinksWithStatus);
             } else if (validate === false && stats === true) {
+              // Folder - Options: stats
               const arrayLinksStatistics =
                 calculateStatistics(arrayLinksWithStatus);
 
               resolve(arrayLinksStatistics);
             } else if (validate === true && stats === true) {
+              // Folder - Options: validate and  stats
               const arrayLinksStatistics =
                 calculateStatistics(arrayLinksWithStatus);
               const arrayLinksBroken =
