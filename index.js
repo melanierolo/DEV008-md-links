@@ -11,7 +11,10 @@ const {
 const { getLinksInHtmlFile } = require("./auxiliary/get-md-file-and-links.js");
 
 const mdLinks = (path, options) => {
-  const { validate, stats } = options;
+  let { validate, stats } = options;
+  // Options
+  validate = validate !== true ? false : true;
+  stats = stats !== true ? false : true;
   console.log("validate", validate, "stats", stats);
   return new Promise((resolve, reject) => {
     if (isValidPath(path)) {

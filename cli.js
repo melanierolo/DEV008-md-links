@@ -1,107 +1,49 @@
 // CLI - show answers
 const { mdLinks } = require("./index.js");
+const yargs = require("yargs");
 
-console.log("Case 1:  The path doesn't exists");
-mdLinks("/noExiste/", { validate: false, stats: false })
-  .then((result) => {
-    console.log("result-1", result);
-  })
-  .catch((error) => {
-    console.log("error 1", error);
-  });
-
-console.log(
-  "Case 2 :The path exists and is an absolute path to a .txt file. without options"
+// Define the command using positional arguments and options
+yargs.command(
+  "$0 <path>",
+  "Analyze links in a Markdown file",
+  (yargs) => {
+    return yargs
+      .positional("path", {
+        describe: "Path to the Markdown file or directory",
+        type: "string",
+      })
+      .options({
+        validate: {
+          alias: "v",
+          describe: "Validate the links",
+          type: "boolean",
+          demandOption: false,
+        },
+        stats: {
+          alias: "s",
+          describe: "Show statistics about the links",
+          type: "boolean",
+          demandOption: false,
+        },
+      });
+  },
+  (argv) => {
+    const { path, validate, stats } = argv;
+    console.log(path);
+    // Call the mdLinks function with the provided path and options
+    try {
+      mdLinks(path, { validate: validate, stats: stats })
+        .then((result) => {
+          console.log("result", result);
+        })
+        .catch((error) => {
+          console.log("Error:", error);
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  }
 );
-mdLinks("./testsMdLinks/file.txt", { validate: false, stats: false })
-  .then((result) => {
-    console.log("result-2", result);
-  })
-  .catch((error) => {
-    console.log("error-2", error);
-  });
 
-console.log(
-  "Case 3 -1:The path exists and is an absolute path to a .md file. without options"
-);
-mdLinks("./testsMdLinks/file.md", { validate: false, stats: false })
-  .then((result) => {
-    console.log("result 3-1", result);
-  })
-  .catch((error) => {
-    console.log("error 3-1", error);
-  });
-
-console.log(
-  "Case 3 -2:The path exists and is an absolute path to a .md file. with options :validate"
-);
-mdLinks("./testsMdLinks/file.md", { validate: true, stats: false })
-  .then((result) => {
-    console.log("result-3-2", result);
-  })
-  .catch((error) => {
-    console.log("error 3-2", error);
-  });
-
-console.log(
-  "Case 3 -3:The path exists and is an absolute path to a .md file. with options:stats"
-);
-mdLinks("./testsMdLinks/file.md", { validate: false, stats: true })
-  .then((result) => {
-    console.log("result-3-3", result);
-  })
-  .catch((error) => {
-    console.log("error 3-3", error);
-  });
-console.log(
-  "Case 3 -4:The path exists and is an absolute path to a .md file. with options: validate and stats"
-);
-mdLinks("./testsMdLinks/file.md", { validate: true, stats: true })
-  .then((result) => {
-    console.log("result-3-4", result);
-  })
-  .catch((error) => {
-    console.log("error 3-4", error);
-  });
-
-console.log("Case 4-1:The path exists and is an absolute path to a directory");
-mdLinks("./testsMdLinks", { validate: false, stats: false })
-  .then((result) => {
-    console.log("result-4-1", result);
-  })
-  .catch((error) => {
-    console.log("error 4-1", error);
-  });
-
-console.log(
-  "Case 4-2:The path exists and is an absolute path to a directory. With options: validate"
-);
-mdLinks("./testsMdLinks/folderParent", { validate: true, stats: false })
-  .then((result) => {
-    console.log("result-4-2", result);
-  })
-  .catch((error) => {
-    console.log("error 4-2", error);
-  });
-
-console.log(
-  "Case 4-3:The path exists and is an absolute path to a directory. With options: stats"
-);
-mdLinks("./testsMdLinks/folderParent", { validate: false, stats: true })
-  .then((result) => {
-    console.log("result-4-3", result);
-  })
-  .catch((error) => {
-    console.log("error 4-3", error);
-  });
-
-console.log(
-  "Case 4-4:The path exists and is an absolute path to a directory. With options: validate y stats"
-);
-mdLinks("./testsMdLinks/folderParent", { validate: true, stats: true })
-  .then((result) => {
-    console.log("result-4-4", result);
-  })
-  .catch((error) => {
-    console.log("error 4-4", error);
-  });
+// Parse the command-line arguments
+yargs.parse();
