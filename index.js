@@ -32,8 +32,9 @@ const mdLinks = (path, options) => {
           const linksOfFile = getLinksInHtmlFile(pathofMDFile);
           return linksOfFile;
         });
-
-        resolve(arrayLinksInFiles);
+        arrayLinksInFiles.length === 0
+          ? reject("There are no files with the .md extension.")
+          : resolve(arrayLinksInFiles);
       } else if (
         isFolder(absolutePath) &&
         (validate === true || stats === true)
