@@ -11,7 +11,10 @@ const {
 const { getLinksInHtmlFile } = require("./auxiliary/get-md-file-and-links.js");
 
 const mdLinks = (path, options) => {
-  const { validate, stats } = options;
+  let { validate, stats } = options;
+  // Options
+  validate = validate !== true ? false : true;
+  stats = stats !== true ? false : true;
   console.log("validate", validate, "stats", stats);
   return new Promise((resolve, reject) => {
     if (isValidPath(path)) {
@@ -29,8 +32,9 @@ const mdLinks = (path, options) => {
           const linksOfFile = getLinksInHtmlFile(pathofMDFile);
           return linksOfFile;
         });
-
-        resolve(arrayLinksInFiles);
+        arrayLinksInFiles.length === 0
+          ? reject("There are no files with the .md extension.")
+          : resolve(arrayLinksInFiles);
       } else if (
         isFolder(absolutePath) &&
         (validate === true || stats === true)
