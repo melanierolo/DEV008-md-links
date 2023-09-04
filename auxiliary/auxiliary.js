@@ -25,19 +25,10 @@ function validateAbsolutePath(inputPath) {
   }
 }
 
-const pathAbsFileOne = validateAbsolutePath(
-  "./../DEV008-md-links/testsMdLinks/file.md"
-);
-console.log(pathAbsFileOne);
-
 function isFolder(inputAbsolutePath) {
   const status = fs.statSync(inputAbsolutePath);
   return status.isDirectory();
 }
-
-/*console.log("-----Example 2--------:isFolder");
-console.log("isFolder", isFolder(pathAbs));
-console.log("isFolder", isFolder(pathAbsTwo));*/
 
 function readContentDirectory(directoryAbsPath) {
   let subdirectories = [];
@@ -95,43 +86,6 @@ function hasMdFileExtension(inputAbsolutePath) {
 
   return fileExtension === ".md" ? true : false;
 }
-/*
-console.log("-----Example 3--------:hasMdFileExtension");
-console.log("hasMdFileExtension", hasMdFileExtension(pathAbs));
-console.log("hasMdFileExtension", hasMdFileExtension(pathAbsTwo));*/
-
-/*--------------Example 6 */
-/*console.log("---------------Example 6");
-const objectOfLink = {
-  href: "https://github.com/markedjs/marked",
-  text: "Marked",
-  file: "C:\\Users\\Usuario\\Documents\\Labo\\Proyectos\\4-dev008--md-links\\DEV008-md-links\\testsMdLinks\\file.md",
-};*/
-
-function checkLinkStatus(objectOfLink) {
-  return fetch(objectOfLink.href);
-}
-
-/*let newObjectLink = { ...objectOfLink };
-checkLinkStatus(objectOfLink)
-  .then((response) => {
-    newObjectLink.ok = response.ok ? "OK" : "FAIL";
-    newObjectLink.status = response.status;
-    console.log(newObjectLink);
-    console.log("response.status: ", response.status);
-    console.log("Link:", objectOfLink.href);
-    console.log("Status:", response.status);
-    console.log(
-      "Error Details:",
-      response.errorDetails || "No error details available"
-    );
-    console.log("----------");
-    return newObjectLink;
-  })
-  .catch((err) => {
-    console.log(err);
-    return err;
-  });*/
 
 function getLinksStatusArray(linkObjectsArray) {
   const linksPromises = linkObjectsArray.map((link) => {
