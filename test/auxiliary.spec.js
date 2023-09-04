@@ -3,6 +3,7 @@ const {
   isValidPath,
   convertToAbsPath,
   validateAbsolutePath,
+  isFolder,
 } = require("../auxiliary/auxiliary.js");
 const { getLinksStatusArray } = require("../auxiliary/auxiliary.js");
 const {
@@ -42,6 +43,19 @@ describe("Tests to validate if the path is an absolute path", () => {
       "C:\\Users\\Usuario\\Documents\\Labo\\Proyectos\\4-dev008--md-links\\DEV008-md-links\\testsMdLinks\\folder";
 
     expect(validateAbsolutePath(relativePath)).toBe(expectedAbsPath);
+  });
+});
+
+describe("Tests to validate if the path is a folder", () => {
+  it("It should return true whether it's a folder", () => {
+    const absPath =
+      "C:\\Users\\Usuario\\Documents\\Labo\\Proyectos\\4-dev008--md-links\\DEV008-md-links\\testsMdLinks";
+    expect(isFolder(absPath)).toBe(true);
+  });
+  it("It should return false whether it is a file", () => {
+    const absPath =
+      "C:\\Users\\Usuario\\Documents\\Labo\\Proyectos\\4-dev008--md-links\\DEV008-md-links\\testsMdLinks\\file.md";
+    expect(isFolder(absPath)).toBe(false);
   });
 });
 
