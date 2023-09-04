@@ -4,6 +4,7 @@ const {
   convertToAbsPath,
   validateAbsolutePath,
   isFolder,
+  hasMdFileExtension,
 } = require("../auxiliary/auxiliary.js");
 const { getLinksStatusArray } = require("../auxiliary/auxiliary.js");
 const {
@@ -64,6 +65,19 @@ describe("Tests to validate if the path is a folder", () => {
     const absPath =
       "C:\\Users\\Usuario\\Documents\\Labo\\Proyectos\\4-dev008--md-links\\DEV008-md-links\\testsMdLinks\\file.md";
     expect(isFolder(absPath)).toBe(false);
+  });
+});
+
+describe("Tests to verify whether the file extension is '.md'.", () => {
+  it("It should return 'true' if the file has an '.md' file extension.", () => {
+    const absPathFile =
+      "C:\\Users\\Usuario\\Documents\\Labo\\Proyectos\\4-dev008--md-links\\DEV008-md-links\\testsMdLinks\\file.md";
+    expect(hasMdFileExtension(absPathFile)).toBe(true);
+  });
+  it("It should return 'false' if the file hasn't an '.md' file extension.", () => {
+    const absPathFile =
+      "C:\\Users\\Usuario\\Documents\\Labo\\Proyectos\\4-dev008--md-links\\DEV008-md-links\\testsMdLinks\\file.txt";
+    expect(hasMdFileExtension(absPathFile)).toBe(false);
   });
 });
 
