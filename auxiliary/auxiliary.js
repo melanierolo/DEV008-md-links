@@ -38,12 +38,6 @@ function readContentDirectory(directoryAbsPath) {
   return subdirectories;
 }
 
-// Test
-console.log("Test---readContentDirectory");
-const absPathThree =
-  "C:\\Users\\Usuario\\Documents\\Labo\\Proyectos\\4-dev008--md-links\\DEV008-md-links\\testsMdLinks";
-console.log(readContentDirectory(absPathThree));
-
 function getAllPathOfFileInDirectory(absPathOfFolder) {
   const arrayOfPaths = readContentDirectory(absPathOfFolder);
   const someElementIsFolder = arrayOfPaths.some((element) => isFolder(element));
@@ -132,19 +126,6 @@ function calculateBrokenLinks(arrayOfLinksWithStatus) {
   return [{ Broken: count }];
 }
 
-// TESTS
-/*const arrayOfLinks = getLinksInHtmlFile(pathAbsFileOne);
-
-const arrayOfLinksWithStatus = getLinksStatusArray(arrayOfLinks).then(
-  (arrayLinks) => {
-    console.log("arrayLinks", arrayLinks);
-    console.log(calculateStatistics(arrayLinks));
-    console.log(calculateBrokenLinks(arrayLinks));
-  }
-);
-
-console.log("arrayOfLinksWithStatus", arrayOfLinksWithStatus); // Promise
-*/
 module.exports = {
   isValidPath,
   convertToAbsPath,
@@ -152,6 +133,7 @@ module.exports = {
   isFolder,
   getAllPathOfFileInDirectory,
   hasMdFileExtension,
+  readContentDirectory,
   getLinksStatusArray,
   calculateStatistics,
   calculateBrokenLinks,
